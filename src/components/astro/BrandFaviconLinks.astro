@@ -1,0 +1,15 @@
+---
+import { resolveBrandFavicons } from "../../domain/faviconPolicy";
+
+interface Props {
+  cmsFaviconUrl?: string | null;
+}
+
+const links = resolveBrandFavicons({ cmsFaviconUrl: Astro.props.cmsFaviconUrl });
+---
+
+{
+  links.map((link) => (
+    <link rel={link.rel} type={link.type} sizes={link.sizes} href={link.href} />
+  ))
+}

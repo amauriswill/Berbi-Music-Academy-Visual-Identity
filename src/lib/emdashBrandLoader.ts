@@ -7,6 +7,7 @@ export interface EmDashLoadResult {
   cmsStatus: {
     connected: boolean;
     entryCount: number;
+    faviconUrl: string | null;
   };
 }
 
@@ -48,6 +49,7 @@ export async function loadBrandConfigFromEmDash(): Promise<EmDashLoadResult> {
       cmsStatus: {
         connected: true,
         entryCount,
+        faviconUrl: settings?.favicon?.url ?? null,
       },
     };
   } catch {
@@ -56,6 +58,7 @@ export async function loadBrandConfigFromEmDash(): Promise<EmDashLoadResult> {
       cmsStatus: {
         connected: false,
         entryCount: 0,
+        faviconUrl: null,
       },
     };
   }

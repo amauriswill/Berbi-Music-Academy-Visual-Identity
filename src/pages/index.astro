@@ -2,6 +2,7 @@
 import { EmDashHead, EmDashBodyStart, EmDashBodyEnd } from "emdash/ui";
 import { createPublicPageContext } from "emdash/page";
 import BrandbookApp from "../components/BrandbookApp";
+import BrandFaviconLinks from "../components/astro/BrandFaviconLinks.astro";
 import { loadBrandConfigFromEmDash } from "../lib/emdashBrandLoader";
 import "../index.css";
 
@@ -24,6 +25,7 @@ const pageCtx = createPublicPageContext({
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{config.brandName} — Brand Guidelines</title>
+    <BrandFaviconLinks cmsFaviconUrl={cmsStatus.faviconUrl} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
