@@ -84,9 +84,9 @@ export function MotionSection({ config, onNotify }: MotionSectionProps) {
       </div>
 
       {/* Gleam-inspired Cubic Bezier Visualizer Card */}
-      <div className="grid gap-8 rounded-xl border border-neutral-200 bg-neutral-50/70 p-6 sm:p-8 lg:grid-cols-[260px_1fr] dark:border-neutral-800 dark:bg-neutral-900/40">
+      <div className="squircle-lg grid gap-8 border border-neutral-200 bg-neutral-50/70 p-6 sm:p-8 lg:grid-cols-[260px_1fr] dark:border-neutral-800 dark:bg-neutral-900/40">
         {/* Coordinate Graph */}
-        <div className="flex items-center justify-center rounded-xl border border-neutral-200 bg-white p-3 dark:border-neutral-800 dark:bg-neutral-950">
+        <div className="squircle-md flex items-center justify-center border border-neutral-200 bg-white p-3 dark:border-neutral-800 dark:bg-neutral-950">
           <svg width="248" height="248" viewBox="0 0 248 248" className="overflow-visible">
             {/* Grid lines */}
             {Array.from({ length: 11 }).map((_, i) => {
@@ -180,7 +180,7 @@ export function MotionSection({ config, onNotify }: MotionSectionProps) {
             </p>
 
             {/* Live animated preview track */}
-            <div className="mt-5 rounded-xl border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
+            <div className="squircle-md mt-5 border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
               <div className="mb-3 flex items-center justify-between">
                 <span className="font-mono text-[10px] uppercase tracking-wider text-neutral-400">
                   Live Animation Preview

@@ -1,4 +1,11 @@
-import type { BrandConfig, GraphicShapeId, MarkSymbolId } from '../types/brand';
+import type { BrandConfig, CornerStyle, GraphicShapeId, MarkSymbolId } from '../types/brand';
+
+/**
+ * Continuous G2 superellipse squircle contour inside viewBox="0 0 64 64"
+ * (Apple/Figma 60% corner-smoothing equivalent for cross-browser SVG/PNG exports).
+ */
+export const SQUIRCLE_PATH_64 =
+  'M32 0 C53.2 0 64 10.8 64 32 C64 53.2 53.2 64 32 64 C10.8 64 0 53.2 0 32 C0 10.8 10.8 0 32 0 Z';
 
 function escapeXml(value: string): string {
   return value
@@ -92,10 +99,15 @@ export function buildAvatarSvg(
   markId: MarkSymbolId,
   fgHex: string,
   bgHex: string,
-  size = 512
+  size = 512,
+  cornerStyle: CornerStyle = 'squircle'
 ): string {
   const inner = `<g transform="translate(14,14) scale(0.5625)">${getMarkInnerSvg(markId, fgHex)}</g>`;
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="12" fill="${bgHex}" />${inner}</svg>`;
+  const bgShape =
+    cornerStyle === 'squircle'
+      ? `<path d="${SQUIRCLE_PATH_64}" fill="${bgHex}" />`
+      : `<rect width="64" height="64" rx="12" fill="${bgHex}" />`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 64 64" fill="none">${bgShape}${inner}</svg>`;
 }
 
 export function getShapePathSvg(shapeId: GraphicShapeId, fillHex: string): string {
@@ -150,6 +162,7 @@ ${colorVars}
   --brand-font-mono: ${config.typography.mono.cssFamily};
   --brand-type-base: ${config.typography.defaultBasePx}px;
   --brand-type-ratio: ${config.typography.defaultRatio};
+  --brand-corner-shape: ${config.cornerStyle};
 
 ${motionVars}
 }
@@ -160,6 +173,7 @@ export function generateJsonTokens(config: BrandConfig): string {
   const payload = {
     brand: config.brandName,
     updated: config.updatedLabel,
+    cornerStyle: config.cornerStyle,
     colors: Object.fromEntries(
       config.colors.core.map((c) => [
         c.id,
@@ -201,6 +215,7 @@ export function generateLlmsBrandSpec(config: BrandConfig): string {
 
 ## Identity & Mark
 - Symbol style: \`${config.mark.symbolId}\`
+- Corner geometry: \`${config.cornerStyle}\` (${config.cornerStyle === 'squircle' ? 'G2 superellipse' : 'G1 circular radius'})
 - Minimum sizes: ${config.mark.minPrintMm}mm print / ${config.mark.minDigitalPx}px digital
 - Clearspace: ${config.mark.clearspaceUnitLabel}
 

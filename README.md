@@ -40,3 +40,5 @@ Líneas verticales canónicas registradas tras la auditoría con el skill `gridl
 - **Header móvil (`390px`):** márgenes de `20px` (`px-5`), botón de menú con compensación `-ml-1.5` para alinear el icono al margen del contenido y controles derechos uniformes de `32px` (`h-8`).
 - **Command Palette (`⌘K`):** columna de iconos centrada a `30–31px`, línea de texto a `52–53px` y columna derecha (`X` / `→`) centrada a `30–31px` del borde derecho.
 - **Drawer Editor (`448px`):** margen base `24px` (`p-6`) y botón de cierre con compensación `-mr-1.5`.
+- **Tarjetas de Tipografía (`Type system`):** estructura uniforme en 4 bandas horizontales (`Band 1` rol/pesos `h-5`, `Band 2` nombre `h-9`, `Band 3` caja espécimen apilada sin desbordamiento, `Band 4` descripción alineada en el mismo eje Y) en `1440px` y `390px`.
+- **Geometría de esquinas (Squircles G2):** clases `.squircle-sm` / `.squircle-md` / `.squircle-lg` con `corner-shape: squircle` bajo `@supports`, fallback circular homogéneo por contenedor, y exportación vectorial `<path>` en avatares/favicons (`buildAvatarSvg`). Documentado en [`docs/research/squircles.md`](docs/research/squircles.md).

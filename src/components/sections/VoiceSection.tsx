@@ -18,7 +18,7 @@ export function VoiceSection({ config }: VoiceSectionProps) {
       </p>
 
       {/* Voice Specimen Block (Opsis-inspired) */}
-      <div className="mt-8 divide-y divide-neutral-200 rounded-xl border border-neutral-200 bg-white dark:divide-neutral-800 dark:border-neutral-800 dark:bg-neutral-950">
+      <div className="squircle-lg mt-8 divide-y divide-neutral-200 border border-neutral-200 bg-white dark:divide-neutral-800 dark:border-neutral-800 dark:bg-neutral-950">
         {config.voice.examples.map((ex, idx) => (
           <div key={ex.label} className="px-6 py-5">
             <span className="block font-mono text-[10px] uppercase tracking-[0.12em] text-neutral-400">
@@ -53,7 +53,7 @@ export function VoiceSection({ config }: VoiceSectionProps) {
               </p>
             </div>
 
-            <div className="overflow-hidden rounded-xl border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950">
+            <div className="squircle-lg overflow-hidden border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950">
               <div className="grid grid-cols-2 border-b border-neutral-200 bg-neutral-50 px-5 py-2.5 font-mono text-[10px] uppercase tracking-[0.12em] text-neutral-400 dark:border-neutral-800 dark:bg-neutral-900">
                 <span>Say</span>
                 <span>Avoid</span>

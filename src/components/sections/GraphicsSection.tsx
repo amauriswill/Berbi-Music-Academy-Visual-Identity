@@ -64,7 +64,7 @@ export function GraphicsSection({ config, onNotify }: GraphicsSectionProps) {
                   handleCopyShape(el.id, el.name, svgString);
                 }
               }}
-              className="group relative flex h-52 cursor-pointer flex-col items-center justify-center rounded-xl border border-neutral-200 bg-neutral-50/70 p-6 transition-all hover:border-neutral-300 hover:bg-white dark:border-neutral-800 dark:bg-neutral-900/50 dark:hover:border-neutral-700 dark:hover:bg-neutral-900"
+              className="squircle-lg group relative flex h-52 cursor-pointer flex-col items-center justify-center border border-neutral-200 bg-neutral-50/70 p-6 transition-all hover:border-neutral-300 hover:bg-white dark:border-neutral-800 dark:bg-neutral-900/50 dark:hover:border-neutral-700 dark:hover:bg-neutral-900"
             >
               <div className="no-print absolute right-3 top-3 flex items-center gap-1">
                 {isCopied ? (

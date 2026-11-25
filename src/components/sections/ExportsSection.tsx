@@ -44,7 +44,13 @@ export function ExportsSection({
   const primaryInk = getReadableInk(primary.hex);
 
   const handleFaviconDownload = async (label: string, ext: 'svg' | 'png', size: number) => {
-    const svg = buildAvatarSvg(config.mark.symbolId, primaryInk, primary.hex, size);
+    const svg = buildAvatarSvg(
+      config.mark.symbolId,
+      primaryInk,
+      primary.hex,
+      size,
+      config.cornerStyle
+    );
     const filename = `${slug}-${label.toLowerCase().replace(/\s+/g, '-')}.${ext}`;
     if (ext === 'svg') {
       downloadText(svg, filename, 'image/svg+xml');
@@ -141,7 +147,7 @@ export function ExportsSection({
               return (
                 <div key={`iso-${color.id}`} className="space-y-1.5">
                   <div
-                    className="group relative flex h-36 items-center justify-center rounded-xl border border-neutral-200 dark:border-neutral-800"
+                    className="squircle-lg group relative flex h-36 items-center justify-center border border-neutral-200 dark:border-neutral-800"
                     style={{ backgroundColor: bg }}
                   >
                     <div className="absolute right-2 top-2">
@@ -179,7 +185,7 @@ export function ExportsSection({
               return (
                 <div key={`logo-${color.id}`} className="space-y-1.5">
                   <div
-                    className="group relative flex h-32 items-center justify-center rounded-xl border border-neutral-200 px-3 dark:border-neutral-800"
+                    className="squircle-lg group relative flex h-32 items-center justify-center border border-neutral-200 px-3 dark:border-neutral-800"
                     style={{ backgroundColor: bg }}
                   >
                     <div className="absolute right-2 top-2">
@@ -213,11 +219,17 @@ export function ExportsSection({
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
             {config.colors.core.map((color) => {
               const fg = getReadableInk(color.hex);
-              const svg = buildAvatarSvg(config.mark.symbolId, fg, color.hex, 512);
+              const svg = buildAvatarSvg(
+                config.mark.symbolId,
+                fg,
+                color.hex,
+                512,
+                config.cornerStyle
+              );
               return (
                 <div key={`av-${color.id}`} className="space-y-1.5">
                   <div
-                    className="group relative flex h-36 items-center justify-center rounded-xl border border-neutral-200 dark:border-neutral-800"
+                    className="squircle-lg group relative flex h-36 items-center justify-center border border-neutral-200 dark:border-neutral-800"
                     style={{ backgroundColor: color.hex }}
                   >
                     <div className="absolute right-2 top-2">
@@ -246,7 +258,7 @@ export function ExportsSection({
                 <button
                   type="button"
                   onClick={() => handleFaviconDownload(fav.label, fav.ext, fav.size)}
-                  className="group relative flex h-32 w-full items-center justify-center rounded-xl border border-neutral-200 transition-transform hover:scale-[1.01] dark:border-neutral-800"
+                  className="squircle-lg group relative flex h-32 w-full items-center justify-center border border-neutral-200 transition-transform hover:scale-[1.01] dark:border-neutral-800"
                   style={{ backgroundColor: primary.hex }}
                 >
                   <BrandSymbol symbolId={config.mark.symbolId} color={primaryInk} size={46} />
@@ -273,7 +285,7 @@ export function ExportsSection({
                   await copyText(font.cssFamily);
                   onNotify(`Copied CSS font-family for ${font.name}`);
                 }}
-                className="flex items-center justify-between rounded-xl border border-neutral-200 bg-neutral-50/70 px-5 py-4 text-left transition-colors hover:bg-white dark:border-neutral-800 dark:bg-neutral-900/50 dark:hover:bg-neutral-900"
+                className="squircle-lg flex items-center justify-between border border-neutral-200 bg-neutral-50/70 px-5 py-4 text-left transition-colors hover:bg-white dark:border-neutral-800 dark:bg-neutral-900/50 dark:hover:bg-neutral-900"
               >
                 <div className="flex items-center gap-3">
                   <span

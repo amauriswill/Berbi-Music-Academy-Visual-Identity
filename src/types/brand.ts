@@ -1,5 +1,7 @@
 export type MarkSymbolId = 'berbi' | 'solis' | 'gleam' | 'monolith' | 'kite';
 
+export type CornerStyle = 'squircle' | 'round';
+
 export type GraphicShapeId =
   | 'clover'
   | 'cloud'
@@ -106,6 +108,7 @@ export interface ApplicationSection {
 export interface BrandConfig {
   id: string;
   preset: 'berbi' | 'editorial' | 'expressive';
+  cornerStyle: CornerStyle;
   brandName: string;
   tagline: string;
   updatedLabel: string;

@@ -105,43 +105,55 @@ export function TypographySection({ config }: TypographySectionProps) {
         Type system
       </h2>
 
-      {/* Font Specimens (Gleam + Opsis fusion) */}
+      {/* Font Specimens (4 aligned horizontal bands + squircle surfaces) */}
       <div className="mt-8 grid gap-6 lg:grid-cols-3">
         {families.map((fam) => (
           <div
             key={fam.id}
-            className="flex flex-col justify-between rounded-xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950"
+            className="squircle-lg flex flex-col border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950"
           >
-            <div>
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-neutral-400">
-                  {fam.roleLabel}
-                </span>
-                <span className="font-mono text-[10px] text-neutral-400">
-                  {fam.weights.join(' / ')}
-                </span>
-              </div>
+            {/* Band 1: Single-line eyebrow role & weights */}
+            <div className="flex h-5 items-center justify-between gap-2">
+              <span className="truncate font-mono text-[10px] uppercase tracking-[0.12em] text-neutral-400">
+                {fam.roleLabel}
+              </span>
+              <span className="shrink-0 font-mono text-[10px] tabular-nums text-neutral-400">
+                {fam.weights.join(' / ')}
+              </span>
+            </div>
 
+            {/* Band 2: Uniform-height font family title */}
+            <div className="mt-3 flex h-9 items-center">
               <h3
-                className="mt-3 text-3xl text-neutral-950 dark:text-white"
+                className="truncate text-[24px] leading-none text-neutral-950 dark:text-white"
                 style={{ fontFamily: fam.cssFamily }}
+                title={fam.name}
               >
                 {fam.name}
               </h3>
+            </div>
 
-              <div
-                className="my-5 flex items-baseline justify-between rounded-lg bg-neutral-50 px-4 py-3 dark:bg-neutral-900"
-                style={{ fontFamily: fam.cssFamily }}
-              >
-                <span className="text-5xl text-neutral-900 dark:text-white">Aa</span>
-                <span className="text-right text-xs leading-relaxed text-neutral-500">
-                  ABCDEFGHIJKLMNOPQRSTUVWXYZ
-                  <br />
-                  abcdefghijklmnopqrstuvwxyz · 0123456789
+            {/* Band 3: Uniform stacked specimen box (zero overflow at 1440px & 390px) */}
+            <div
+              className="squircle-md my-5 flex flex-col justify-between bg-neutral-50 px-4 py-4 dark:bg-neutral-900"
+              style={{ fontFamily: fam.cssFamily }}
+            >
+              <div className="flex items-baseline justify-between gap-2">
+                <span className="text-[44px] leading-none text-neutral-900 dark:text-white">
+                  Aa
                 </span>
+                <span className="font-mono text-[11px] tabular-nums tracking-[0.04em] text-neutral-400">
+                  0123456789
+                </span>
+              </div>
+              <div className="my-3 border-t border-neutral-200/70 dark:border-neutral-800" />
+              <div className="space-y-0.5 overflow-hidden text-[10.5px] leading-[1.6] tracking-[0.03em] text-neutral-500 dark:text-neutral-400">
+                <p className="truncate">ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+                <p className="truncate">abcdefghijklmnopqrstuvwxyz</p>
               </div>
             </div>
 
+            {/* Band 4: Aligned description starting on the exact same Y line */}
             <p className="text-xs leading-relaxed text-neutral-500 dark:text-neutral-400">
               {fam.description}
             </p>
@@ -154,7 +166,7 @@ export function TypographySection({ config }: TypographySectionProps) {
         <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
           <h3 className="text-lg font-medium text-neutral-950 dark:text-white">Type scale</h3>
 
-          <div className="no-print flex flex-wrap items-center gap-6 rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-2.5 dark:border-neutral-800 dark:bg-neutral-900">
+          <div className="no-print squircle-md flex flex-wrap items-center gap-6 border border-neutral-200 bg-neutral-50 px-4 py-2.5 dark:border-neutral-800 dark:bg-neutral-900">
             <label className="flex items-center gap-3 text-xs">
               <span className="font-mono text-[10px] uppercase tracking-wider text-neutral-400">
                 Base
@@ -191,7 +203,7 @@ export function TypographySection({ config }: TypographySectionProps) {
           </div>
         </div>
 
-        <div className="divide-y divide-neutral-200 rounded-xl border border-neutral-200 bg-white dark:divide-neutral-800 dark:border-neutral-800 dark:bg-neutral-950">
+        <div className="squircle-lg divide-y divide-neutral-200 border border-neutral-200 bg-white dark:divide-neutral-800 dark:border-neutral-800 dark:bg-neutral-950">
           {scaleRows.map((row) => (
             <div key={row.role} className="space-y-2 px-6 py-5">
               <div className="flex flex-wrap items-center justify-between gap-2 font-mono text-[10.5px] text-neutral-400">
@@ -249,7 +261,7 @@ export function TypographySection({ config }: TypographySectionProps) {
           </div>
         </div>
 
-        <div className="rounded-xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+        <div className="squircle-lg border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
           <div className="no-print mb-4 flex flex-wrap items-center gap-5 border-b border-neutral-200 pb-4 text-xs dark:border-neutral-800">
             <label className="flex items-center gap-2">
               <span className="font-mono text-[10px] text-neutral-400">SIZE</span>

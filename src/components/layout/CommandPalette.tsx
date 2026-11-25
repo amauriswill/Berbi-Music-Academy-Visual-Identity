@@ -131,7 +131,7 @@ export function CommandPalette({
         role="dialog"
         aria-modal="true"
         aria-label="Search brand guidelines"
-        className="w-full max-w-lg overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-2xl dark:border-neutral-800 dark:bg-neutral-950"
+        className="squircle-lg w-full max-w-lg overflow-hidden border border-neutral-200 bg-white shadow-2xl dark:border-neutral-800 dark:bg-neutral-950"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center gap-3 border-b border-neutral-200 px-5 py-3 dark:border-neutral-800">

@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --brand-primary: #131B16;
-  --brand-secondary: #2C2019;
-  --brand-surface: #F2EFEA;
-  --brand-ink: #0A0A0A;
-  --brand-accent: #131B16;
+  --brand-primary: #14131A;
+  --brand-secondary: #4A2318;
+  --brand-surface: #F5F0E6;
+  --brand-ink: #FFFFFF;
+  --brand-accent: #C8923B;
   --font-display: 'Instrument Serif', Georgia, serif;
   --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
@@ -16,6 +16,46 @@
 html {
   scroll-behavior: smooth;
   font-family: var(--font-ui);
+}
+
+/* ============================================================================
+ * Squircle Progressive Enhancement (W3C CSS Borders Level 4: corner-shape)
+ * Fallback: smooth circular border-radius for Safari & Firefox.
+ * Supported: Chromium/Edge 139+ with optically compensated radii (~1.3x).
+ * ============================================================================ */
+.squircle-sm {
+  border-radius: 8px;
+}
+
+.squircle-md {
+  border-radius: 12px;
+}
+
+.squircle-lg {
+  border-radius: 16px;
+}
+
+@supports (corner-shape: squircle) {
+  html[data-corner-style='squircle'] .squircle-sm {
+    border-radius: 10px;
+    corner-shape: squircle;
+  }
+
+  html[data-corner-style='squircle'] .squircle-md {
+    border-radius: 16px;
+    corner-shape: squircle;
+  }
+
+  html[data-corner-style='squircle'] .squircle-lg {
+    border-radius: 22px;
+    corner-shape: squircle;
+  }
+
+  html[data-corner-style='round'] .squircle-sm,
+  html[data-corner-style='round'] .squircle-md,
+  html[data-corner-style='round'] .squircle-lg {
+    corner-shape: round;
+  }
 }
 
 /* Subtle Swiss editorial scrollbars */

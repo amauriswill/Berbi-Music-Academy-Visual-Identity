@@ -339,7 +339,7 @@ export function ApplicationsSection({ config }: ApplicationsSectionProps) {
                     key={item.id}
                     type="button"
                     onClick={() => setLightboxIndex(idx)}
-                    className="group relative overflow-hidden rounded-xl border border-neutral-200 text-left transition-all hover:border-neutral-400 dark:border-neutral-800 dark:hover:border-neutral-600"
+                    className="squircle-lg group relative overflow-hidden border border-neutral-200 text-left transition-all hover:border-neutral-400 dark:border-neutral-800 dark:hover:border-neutral-600"
                   >
                     <div className="h-72 w-full">
                       <MockupCanvas app={item} config={config} />
@@ -403,7 +403,7 @@ export function ApplicationsSection({ config }: ApplicationsSectionProps) {
               <ChevronLeft className="h-5 w-5" />
             </button>
 
-            <div className="h-[420px] w-full overflow-hidden rounded-xl border border-white/10 shadow-2xl">
+            <div className="squircle-lg h-[420px] w-full overflow-hidden border border-white/10 shadow-2xl">
               <MockupCanvas app={activeItem} config={config} />
             </div>
 

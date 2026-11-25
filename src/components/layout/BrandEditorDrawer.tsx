@@ -97,7 +97,7 @@ export function BrandEditorDrawer({
               <button
                 type="button"
                 onClick={() => applyPreset('berbi')}
-                className={`rounded-lg border px-3 py-2.5 text-left transition-all ${
+                className={`squircle-md border px-3 py-2.5 text-left transition-all ${
                   config.preset === 'berbi'
                     ? 'border-neutral-900 bg-neutral-900 text-white dark:border-white dark:bg-white dark:text-neutral-950'
                     : 'border-neutral-200 hover:border-neutral-300 dark:border-neutral-800'
@@ -109,7 +109,7 @@ export function BrandEditorDrawer({
               <button
                 type="button"
                 onClick={() => applyPreset('editorial')}
-                className={`rounded-lg border px-3 py-2.5 text-left transition-all ${
+                className={`squircle-md border px-3 py-2.5 text-left transition-all ${
                   config.preset === 'editorial'
                     ? 'border-neutral-900 bg-neutral-900 text-white dark:border-white dark:bg-white dark:text-neutral-950'
                     : 'border-neutral-200 hover:border-neutral-300 dark:border-neutral-800'
@@ -121,7 +121,7 @@ export function BrandEditorDrawer({
               <button
                 type="button"
                 onClick={() => applyPreset('expressive')}
-                className={`rounded-lg border px-3 py-2.5 text-left transition-all ${
+                className={`squircle-md border px-3 py-2.5 text-left transition-all ${
                   config.preset === 'expressive'
                     ? 'border-neutral-900 bg-neutral-900 text-white dark:border-white dark:bg-white dark:text-neutral-950'
                     : 'border-neutral-200 hover:border-neutral-300 dark:border-neutral-800'
@@ -130,6 +130,35 @@ export function BrandEditorDrawer({
                 <span className="block text-xs font-semibold">Expressive Studio</span>
                 <span className="block text-[11px] opacity-70">Gleam / Geometric</span>
               </button>
+            </div>
+          </div>
+
+          {/* Corner Geometry Toggle (Squircle G2 vs Round G1) */}
+          <div>
+            <label className="mb-2 block text-xs font-medium text-neutral-500">
+              Corner Geometry
+            </label>
+            <div className="grid grid-cols-2 gap-2">
+              {(
+                [
+                  { id: 'squircle', title: 'Squircle (G2)', sub: 'Continuous superellipse' },
+                  { id: 'round', title: 'Round (G1)', sub: 'Standard circular arc' },
+                ] as const
+              ).map((opt) => (
+                <button
+                  key={opt.id}
+                  type="button"
+                  onClick={() => onChange({ ...config, cornerStyle: opt.id })}
+                  className={`squircle-md border px-3 py-2 text-left transition-all ${
+                    config.cornerStyle === opt.id
+                      ? 'border-neutral-900 bg-neutral-900 text-white dark:border-white dark:bg-white dark:text-neutral-950'
+                      : 'border-neutral-200 hover:border-neutral-300 dark:border-neutral-800'
+                  }`}
+                >
+                  <span className="block text-xs font-semibold">{opt.title}</span>
+                  <span className="block text-[10.5px] opacity-70">{opt.sub}</span>
+                </button>
+              ))}
             </div>
           </div>
 
@@ -176,7 +205,7 @@ export function BrandEditorDrawer({
                           mark: { ...config.mark, symbolId: sym.id },
                         })
                       }
-                      className={`flex flex-col items-center gap-1.5 rounded-lg border py-2.5 text-[11px] transition-all ${
+                      className={`squircle-md flex flex-col items-center gap-1.5 border py-2.5 text-[11px] transition-all ${
                         selected
                           ? 'border-neutral-900 bg-neutral-100 font-semibold text-neutral-950 dark:border-white dark:bg-neutral-800 dark:text-white'
                           : 'border-neutral-200 text-neutral-500 hover:border-neutral-300 dark:border-neutral-800'
@@ -200,7 +229,7 @@ export function BrandEditorDrawer({
               {config.colors.core.map((color) => (
                 <div
                   key={color.id}
-                  className="flex items-center justify-between rounded-lg border border-neutral-200 px-3 py-2 dark:border-neutral-800"
+                  className="squircle-md flex items-center justify-between border border-neutral-200 px-3 py-2 dark:border-neutral-800"
                 >
                   <div className="flex items-center gap-2.5">
                     <input

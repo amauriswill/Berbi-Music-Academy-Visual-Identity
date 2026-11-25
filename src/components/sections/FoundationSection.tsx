@@ -29,7 +29,7 @@ export function FoundationSection({ config }: FoundationSectionProps) {
 
       {/* Hero Cover Card (Gleam + Opsis fusion) */}
       <div
-        className="relative overflow-hidden rounded-xl border border-black/10 p-8 sm:p-12"
+        className="squircle-lg relative overflow-hidden border border-black/10 p-8 sm:p-12"
         style={{ backgroundColor: heroBg, color: heroFg }}
       >
         {/* Oversized subtle watermark symbol */}
@@ -76,7 +76,7 @@ export function FoundationSection({ config }: FoundationSectionProps) {
         <h2 className="text-lg font-medium text-neutral-950 dark:text-white">Introduction</h2>
 
         <div
-          className="mt-5 flex items-center justify-center rounded-xl border border-black/5 py-16 sm:py-20"
+          className="squircle-lg mt-5 flex items-center justify-center border border-black/5 py-16 sm:py-20"
           style={{ backgroundColor: surfaceColor.hex, color: getReadableInk(surfaceColor.hex) }}
         >
           <BrandLockup
@@ -104,7 +104,7 @@ export function FoundationSection({ config }: FoundationSectionProps) {
           </span>
         </div>
 
-        <div className="divide-y divide-neutral-200 rounded-xl border border-neutral-200 bg-white dark:divide-neutral-800 dark:border-neutral-800 dark:bg-neutral-950">
+        <div className="squircle-lg divide-y divide-neutral-200 border border-neutral-200 bg-white dark:divide-neutral-800 dark:border-neutral-800 dark:bg-neutral-950">
           {LOGOTYPE_SCALES.map((px) => (
             <div
               key={px}

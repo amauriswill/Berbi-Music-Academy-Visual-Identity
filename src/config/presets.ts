@@ -3,6 +3,7 @@ import type { BrandConfig } from '../types/brand';
 export const BERBI_PRESET: BrandConfig = {
   id: 'berbi-music-academy',
   preset: 'berbi',
+  cornerStyle: 'squircle',
   brandName: 'Berbi Music Academy',
   tagline: 'Where musical discipline meets creative expression.',
   updatedLabel: 'Updated November 2026',
@@ -346,6 +347,7 @@ export const BERBI_PRESET: BrandConfig = {
 export const EDITORIAL_PRESET: BrandConfig = {
   id: 'atelier-solis',
   preset: 'editorial',
+  cornerStyle: 'squircle',
   brandName: 'Opsis Partners',
   tagline: 'An operational partner for founders and growing businesses.',
   updatedLabel: 'Updated November 2026',
@@ -689,6 +691,7 @@ export const EXPRESSIVE_PRESET: BrandConfig = {
   ...EDITORIAL_PRESET,
   id: 'gleam-studio',
   preset: 'expressive',
+  cornerStyle: 'squircle',
   brandName: 'Gleam',
   tagline: 'Gleam is the app for booking home cleaning.',
   updatedLabel: 'Updated November 2026',

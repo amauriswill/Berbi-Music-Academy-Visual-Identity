@@ -74,7 +74,7 @@ export function ColorSection({ config, onNotify }: ColorSectionProps) {
           return (
             <div
               key={color.id}
-              className={`group flex flex-col overflow-hidden rounded-xl border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950 ${
+              className={`squircle-lg group flex flex-col overflow-hidden border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950 ${
                 color.span === 2 ? 'sm:col-span-2 lg:col-span-2' : ''
               }`}
             >
@@ -149,7 +149,7 @@ export function ColorSection({ config, onNotify }: ColorSectionProps) {
         <h3 className="mb-4 text-lg font-medium text-neutral-950 dark:text-white">
           Color proportions
         </h3>
-        <div className="flex h-44 w-full overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-800">
+        <div className="squircle-lg flex h-44 w-full overflow-hidden border border-neutral-200 dark:border-neutral-800">
           {config.colors.core.map((color) => {
             const ink = getReadableInk(color.hex);
             return (
@@ -188,7 +188,7 @@ export function ColorSection({ config, onNotify }: ColorSectionProps) {
           </span>
         </div>
 
-        <div className="divide-y divide-neutral-200 rounded-xl border border-neutral-200 bg-white dark:divide-neutral-800 dark:border-neutral-800 dark:bg-neutral-950">
+        <div className="squircle-lg divide-y divide-neutral-200 border border-neutral-200 bg-white dark:divide-neutral-800 dark:border-neutral-800 dark:bg-neutral-950">
           {config.colors.contrastPairs.map((pair) => {
             const fg =
               config.colors.core.find((c) => c.id === pair.fgColorId) ?? config.colors.core[0];
@@ -204,7 +204,7 @@ export function ColorSection({ config, onNotify }: ColorSectionProps) {
               >
                 <div className="flex items-center gap-4">
                   <div
-                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-black/10 text-sm font-medium"
+                    className="squircle-sm flex h-10 w-10 shrink-0 items-center justify-center border border-black/10 text-sm font-medium"
                     style={{ backgroundColor: bg.hex, color: fg.hex }}
                   >
                     Aa

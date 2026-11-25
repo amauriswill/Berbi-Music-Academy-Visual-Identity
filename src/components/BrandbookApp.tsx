@@ -67,6 +67,7 @@ export default function BrandbookApp({
     root.style.setProperty('--font-display', config.typography.display.cssFamily);
     root.style.setProperty('--font-ui', config.typography.ui.cssFamily);
     root.style.setProperty('--font-mono', config.typography.mono.cssFamily);
+    root.dataset.cornerStyle = config.cornerStyle;
 
     document.title = `${config.brandName} — Brand Guidelines`;
   }, [config]);

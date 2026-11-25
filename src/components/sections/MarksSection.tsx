@@ -80,7 +80,7 @@ export function MarksSection({ config, onNotify }: MarksSectionProps) {
       </div>
 
       {/* Interactive Primary Lockup Showcase (Gleam-inspired surface toggle) */}
-      <div className="group relative overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-800">
+      <div className="squircle-lg group relative overflow-hidden border border-neutral-200 dark:border-neutral-800">
         <div className="no-print flex items-center justify-between border-b border-neutral-200/80 bg-neutral-50 px-4 py-2.5 dark:border-neutral-800 dark:bg-neutral-900/70">
           <div className="flex items-center gap-1.5">
             {(['paper', 'dark', 'brand'] as const).map((mode) => (
@@ -139,7 +139,7 @@ export function MarksSection({ config, onNotify }: MarksSectionProps) {
             return (
               <div key={ver.id} className="space-y-2.5">
                 <div
-                  className="group relative flex h-56 items-center justify-center rounded-xl border border-neutral-200/80 p-8 dark:border-neutral-800"
+                  className="squircle-lg group relative flex h-56 items-center justify-center border border-neutral-200/80 p-8 dark:border-neutral-800"
                   style={{ backgroundColor: ver.bg, color: ver.fg }}
                 >
                   <div className="absolute right-3 top-3">
@@ -171,9 +171,9 @@ export function MarksSection({ config, onNotify }: MarksSectionProps) {
       </div>
 
       {/* Clearspace & Minimum Size Spec */}
-      <div className="mt-12 rounded-xl border border-neutral-200 bg-neutral-50/70 p-6 sm:p-8 dark:border-neutral-800 dark:bg-neutral-900/40">
+      <div className="squircle-lg mt-12 border border-neutral-200 bg-neutral-50/70 p-6 sm:p-8 dark:border-neutral-800 dark:bg-neutral-900/40">
         <div className="grid items-center gap-8 md:grid-cols-[1.3fr_1fr]">
-          <div className="flex items-center justify-center rounded-lg border border-dashed border-neutral-300 bg-white p-10 dark:border-neutral-700 dark:bg-neutral-950">
+          <div className="squircle-md flex items-center justify-center border border-dashed border-neutral-300 bg-white p-10 dark:border-neutral-700 dark:bg-neutral-950">
             <div className="relative border border-dashed border-emerald-500/70 px-8 py-6">
               <span className="absolute -top-5 left-1/2 -translate-x-1/2 font-mono text-[10px] text-emerald-600 dark:text-emerald-400">
                 1x

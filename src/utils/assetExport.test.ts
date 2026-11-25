@@ -23,8 +23,12 @@ describe('assetExport', () => {
     expect(logo).toContain('Berbi Music Academy');
     expect(logo).toContain('#14131A');
 
-    const avatar = buildAvatarSvg('monolith', '#FFFFFF', '#131B16', 512);
-    expect(avatar).toContain('width="512"');
+    const avatarSquircle = buildAvatarSvg('berbi', '#FFFFFF', '#14131A', 512, 'squircle');
+    expect(avatarSquircle).toContain('width="512"');
+    expect(avatarSquircle).toContain('<path d="M32 0');
+
+    const avatarRound = buildAvatarSvg('monolith', '#FFFFFF', '#131B16', 512, 'round');
+    expect(avatarRound).toContain('<rect width="64" height="64" rx="12"');
 
     const shape = buildGraphicShapeSvg('spark', '#C8923B', 160);
     expect(shape).toContain('viewBox="0 0 100 100"');
@@ -35,6 +39,7 @@ describe('assetExport', () => {
     const berbiCss = generateCssTokens(BERBI_PRESET);
     expect(berbiCss).toContain('--brand-color-ebony: #14131A;');
     expect(berbiCss).toContain('--brand-motion-legato:');
+    expect(berbiCss).toContain('--brand-corner-shape: squircle;');
 
     const berbiJson = JSON.parse(generateJsonTokens(BERBI_PRESET));
     expect(berbiJson.brand).toBe('Berbi Music Academy');
