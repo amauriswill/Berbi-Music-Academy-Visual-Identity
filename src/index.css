@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand-primary: #131B16;
+  --brand-secondary: #2C2019;
+  --brand-surface: #F2EFEA;
+  --brand-ink: #0A0A0A;
+  --brand-accent: #131B16;
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-ui);
+}
+
+/* Subtle Swiss editorial scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(120, 120, 120, 0.25);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(120, 120, 120, 0.45);
+}
+
+.font-brand-display {
+  font-family: var(--font-display);
+}
+
+.font-brand-ui {
+  font-family: var(--font-ui);
+}
+
+.font-brand-mono {
+  font-family: var(--font-mono);
+}
+
+/* Print / PDF Guidelines Stylesheet */
+@media print {
+  @page {
+    margin: 12mm;
+    size: A4;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #111111 !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-full-width {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  section {
+    break-inside: avoid-page;
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+}
