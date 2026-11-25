@@ -16,7 +16,7 @@ export function FoundationSection({ config }: FoundationSectionProps) {
 
   return (
     <section id="foundation" className="scroll-mt-8 pb-16 pt-2">
-      {/* Header Title (Opsis-inspired) */}
+      {/* Header Title */}
       <div className="mb-8">
         <h1
           className="text-3xl font-medium tracking-tight text-neutral-950 sm:text-4xl dark:text-white"
@@ -27,7 +27,7 @@ export function FoundationSection({ config }: FoundationSectionProps) {
         <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-400">{config.tagline}</p>
       </div>
 
-      {/* Hero Cover Card (Gleam + Opsis fusion) */}
+      {/* Hero Cover Card */}
       <div
         className="squircle-lg relative overflow-hidden border border-black/10 p-8 sm:p-12"
         style={{ backgroundColor: heroBg, color: heroFg }}
@@ -95,7 +95,7 @@ export function FoundationSection({ config }: FoundationSectionProps) {
         </div>
       </div>
 
-      {/* Logotype Scale (Opsis-inspired specimen rows) */}
+      {/* Logotype Scale */}
       <div className="mt-14 border-t border-neutral-200 pt-10 dark:border-neutral-800">
         <div className="mb-5 flex flex-wrap items-center justify-between gap-2">
           <h2 className="text-lg font-medium text-neutral-950 dark:text-white">Logotype scale</h2>

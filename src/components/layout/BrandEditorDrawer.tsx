@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react';
 import { Download, RotateCcw, X } from 'lucide-react';
-import type { BrandConfig, MarkSymbolId } from '../../types/brand';
+import { downloadText } from '../../adapters/browserExport';
 import { BERBI_PRESET, EDITORIAL_PRESET, EXPRESSIVE_PRESET } from '../../config/presets';
-import { downloadText } from '../../utils/assetExport';
+import type { BrandConfig, MarkSymbolId } from '../../types/brand';
+import { isValidHex, normalizeHex, sanitizeHex } from '../../utils/colorMath';
 import { BrandSymbol } from '../brand/BrandMark';
 
 interface BrandEditorDrawerProps {
@@ -27,16 +29,55 @@ export function BrandEditorDrawer({
   onClose,
   onNotify,
 }: BrandEditorDrawerProps) {
+  const [hexDrafts, setHexDrafts] = useState<Record<string, string>>(() =>
+    Object.fromEntries(config.colors.core.map((c) => [c.id, c.hex]))
+  );
+
+  // Keep draft inputs aligned whenever preset or external color changes occur
+  useEffect(() => {
+    setHexDrafts(Object.fromEntries(config.colors.core.map((c) => [c.id, c.hex])));
+  }, [config.id, config.colors.core]);
+
+  // Close drawer cleanly on Escape key press
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [open, onClose]);
+
   if (!open) return null;
 
-  const updateColorHex = (colorId: string, hex: string) => {
+  const commitColorHex = (colorId: string, hex: string) => {
+    const normalized = normalizeHex(hex);
     onChange({
       ...config,
       colors: {
         ...config.colors,
-        core: config.colors.core.map((c) => (c.id === colorId ? { ...c, hex } : c)),
+        core: config.colors.core.map((c) => (c.id === colorId ? { ...c, hex: normalized } : c)),
       },
     });
+  };
+
+  const handleHexTextChange = (colorId: string, rawValue: string) => {
+    setHexDrafts((prev) => ({ ...prev, [colorId]: rawValue }));
+    if (isValidHex(rawValue)) {
+      commitColorHex(colorId, rawValue);
+    }
+  };
+
+  const handleHexBlur = (colorId: string, fallbackHex: string) => {
+    const draft = hexDrafts[colorId] ?? fallbackHex;
+    if (isValidHex(draft)) {
+      const normalized = normalizeHex(draft);
+      setHexDrafts((prev) => ({ ...prev, [colorId]: normalized }));
+    } else {
+      setHexDrafts((prev) => ({ ...prev, [colorId]: fallbackHex }));
+    }
   };
 
   const applyPreset = (preset: 'berbi' | 'editorial' | 'expressive') => {
@@ -60,7 +101,10 @@ export function BrandEditorDrawer({
   };
 
   return (
-    <div className="no-print fixed inset-0 z-50 flex justify-end bg-black/35 backdrop-blur-xs" onClick={onClose}>
+    <div
+      className="no-print fixed inset-0 z-50 flex justify-end bg-black/35 backdrop-blur-xs"
+      onClick={onClose}
+    >
       <aside
         role="dialog"
         aria-modal="true"
@@ -86,6 +130,19 @@ export function BrandEditorDrawer({
             >
               <X className="h-4 w-4" />
             </button>
+          </div>
+
+          <div className="squircle-md border border-neutral-200 bg-neutral-50/80 px-3.5 py-2.5 text-[11.5px] leading-relaxed text-neutral-600 dark:border-neutral-800 dark:bg-neutral-900/70 dark:text-neutral-300">
+            Local preview sandbox — changes live in this browser session. Export{' '}
+            <code className="font-mono text-[10.5px]">brand.config.json</code> below or manage
+            persisted CMS content in{' '}
+            <a
+              href="/_emdash/admin/"
+              className="font-medium text-neutral-950 underline underline-offset-2 dark:text-white"
+            >
+              /_emdash/admin/
+            </a>
+            .
           </div>
 
           {/* Preset switcher */}
@@ -226,35 +283,59 @@ export function BrandEditorDrawer({
               Palette Colors (Updates Swatches, WCAG & Mockups)
             </label>
             <div className="space-y-2">
-              {config.colors.core.map((color) => (
-                <div
-                  key={color.id}
-                  className="squircle-md flex items-center justify-between border border-neutral-200 px-3 py-2 dark:border-neutral-800"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <input
-                      type="color"
-                      value={color.hex}
-                      onChange={(e) => updateColorHex(color.id, e.target.value.toUpperCase())}
-                      className="h-7 w-7 cursor-pointer rounded border border-neutral-300 bg-transparent p-0"
-                    />
-                    <div>
-                      <p className="text-xs font-medium text-neutral-900 dark:text-neutral-100">
-                        {color.name}
-                      </p>
-                      <p className="font-mono text-[10px] uppercase text-neutral-400">
-                        {color.role} · {color.proportion}%
-                      </p>
+              {config.colors.core.map((color) => {
+                const draft = hexDrafts[color.id] ?? color.hex;
+                const invalid = !isValidHex(draft);
+
+                return (
+                  <div
+                    key={color.id}
+                    className="squircle-md flex items-center justify-between border border-neutral-200 px-3 py-2 dark:border-neutral-800"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <input
+                        type="color"
+                        value={sanitizeHex(color.hex)}
+                        onChange={(e) => {
+                          const normalized = normalizeHex(e.target.value);
+                          setHexDrafts((prev) => ({ ...prev, [color.id]: normalized }));
+                          commitColorHex(color.id, normalized);
+                        }}
+                        className="h-7 w-7 cursor-pointer rounded border border-neutral-300 bg-transparent p-0"
+                        aria-label={`${color.name} color picker`}
+                      />
+                      <div>
+                        <p className="text-xs font-medium text-neutral-900 dark:text-neutral-100">
+                          {color.name}
+                        </p>
+                        <p className="font-mono text-[10px] uppercase text-neutral-400">
+                          {color.role} · {color.proportion}%
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex flex-col items-end">
+                      <input
+                        type="text"
+                        value={draft}
+                        onChange={(e) => handleHexTextChange(color.id, e.target.value)}
+                        onBlur={() => handleHexBlur(color.id, color.hex)}
+                        aria-invalid={invalid}
+                        aria-label={`${color.name} hex code`}
+                        className={`w-24 rounded border bg-neutral-50 px-2 py-1 font-mono text-xs text-neutral-700 focus:outline-none dark:bg-neutral-900 dark:text-neutral-200 ${
+                          invalid
+                            ? 'border-red-500 focus:border-red-500'
+                            : 'border-neutral-200 focus:border-neutral-900 dark:border-neutral-800 dark:focus:border-neutral-400'
+                        }`}
+                      />
+                      {invalid && (
+                        <span className="mt-0.5 font-mono text-[9.5px] text-red-500">
+                          Use #RRGGBB
+                        </span>
+                      )}
                     </div>
                   </div>
-                  <input
-                    type="text"
-                    value={color.hex}
-                    onChange={(e) => updateColorHex(color.id, e.target.value)}
-                    className="w-24 rounded border border-neutral-200 bg-neutral-50 px-2 py-1 font-mono text-xs text-neutral-700 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-200"
-                  />
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { BrandConfig } from '../../types/brand';
 
 interface TypographySectionProps {
@@ -17,7 +17,13 @@ export function TypographySection({ config }: TypographySectionProps) {
   const [basePx, setBasePx] = useState<number>(config.typography.defaultBasePx);
   const [ratio, setRatio] = useState<number>(config.typography.defaultRatio);
 
-  // Interactive "Try it" Playground state (Gleam-inspired)
+  // Sync scale controls when switching presets or external brand config
+  useEffect(() => {
+    setBasePx(config.typography.defaultBasePx);
+    setRatio(config.typography.defaultRatio);
+  }, [config.id, config.typography.defaultBasePx, config.typography.defaultRatio]);
+
+  // Interactive specimen tester state
   const [sampleText, setSampleText] = useState(
     'Design systems stay useful when every rule can be tested directly on the page.'
   );
@@ -161,7 +167,7 @@ export function TypographySection({ config }: TypographySectionProps) {
         ))}
       </div>
 
-      {/* Interactive Type Scale (Opsis-inspired BASE + RATIO sliders) */}
+      {/* Interactive Type Scale (Base + Ratio sliders) */}
       <div className="mt-14 border-t border-neutral-200 pt-10 dark:border-neutral-800">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
           <h3 className="text-lg font-medium text-neutral-950 dark:text-white">Type scale</h3>
@@ -229,7 +235,7 @@ export function TypographySection({ config }: TypographySectionProps) {
         </div>
       </div>
 
-      {/* Interactive "Try It" Type Tester (Gleam-inspired) */}
+      {/* Interactive Live Type Tester */}
       <div className="mt-14 border-t border-neutral-200 pt-10 dark:border-neutral-800">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <div>

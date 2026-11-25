@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Check, Copy, Download } from 'lucide-react';
-import { copyText, downloadBlob, downloadText, svgToPngBlob } from '../../utils/assetExport';
+import { copyText, downloadBlob, downloadText, svgToPngBlob } from '../../adapters/browserExport';
 
 interface AssetActionBarProps {
   svgContent: string;

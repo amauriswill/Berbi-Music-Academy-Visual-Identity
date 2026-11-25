@@ -1,11 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
+import { copyText } from '../adapters/browserExport';
 import { defaultBrandConfig } from '../config/brand.config';
+import { buildLogotypeSvg } from '../domain/assetGenerators';
 import { useScrollSpy } from '../hooks/useScrollSpy';
 import { useToast } from '../hooks/useToast';
 import type { BrandConfig } from '../types/brand';
-import { buildLogotypeSvg, copyText } from '../utils/assetExport';
 import { BrandEditorDrawer } from './layout/BrandEditorDrawer';
 import { CommandPalette } from './layout/CommandPalette';
+import { ErrorBoundary } from './layout/ErrorBoundary';
 import { NAV_ITEMS, Sidebar } from './layout/Sidebar';
 import { ToastStack } from './layout/ToastStack';
 import { ApplicationsSection } from './sections/ApplicationsSection';
@@ -114,65 +116,67 @@ export default function BrandbookApp({
   };
 
   return (
-    <div className="min-h-screen bg-white text-neutral-900 dark:bg-[#0D0E0D] dark:text-neutral-100">
-      <Sidebar
-        config={config}
-        activeSection={activeSection}
-        darkMode={darkMode}
-        collapsed={sidebarCollapsed}
-        mobileOpen={mobileNavOpen}
-        cmsConnected={cmsConnected}
-        cmsEntryCount={cmsEntryCount}
-        onToggleCollapse={() => setSidebarCollapsed((c) => !c)}
-        onToggleMobile={setMobileNavOpen}
-        onToggleDarkMode={() => setDarkMode((d) => !d)}
-        onOpenSearch={() => setSearchOpen(true)}
-        onOpenEditor={() => setEditorOpen(true)}
-        onCopyForFigma={handleCopyForFigma}
-        onPrintPdf={handlePrintPdf}
-        onJumpToExports={handleJumpToExports}
-      />
+    <ErrorBoundary>
+      <div className="min-h-screen bg-white text-neutral-900 dark:bg-[#0D0E0D] dark:text-neutral-100">
+        <Sidebar
+          config={config}
+          activeSection={activeSection}
+          darkMode={darkMode}
+          collapsed={sidebarCollapsed}
+          mobileOpen={mobileNavOpen}
+          cmsConnected={cmsConnected}
+          cmsEntryCount={cmsEntryCount}
+          onToggleCollapse={() => setSidebarCollapsed((c) => !c)}
+          onToggleMobile={setMobileNavOpen}
+          onToggleDarkMode={() => setDarkMode((d) => !d)}
+          onOpenSearch={() => setSearchOpen(true)}
+          onOpenEditor={() => setEditorOpen(true)}
+          onCopyForFigma={handleCopyForFigma}
+          onPrintPdf={handlePrintPdf}
+          onJumpToExports={handleJumpToExports}
+        />
 
-      <main
-        className={`print-full-width transition-all duration-200 ${
-          sidebarCollapsed ? 'lg:pl-[68px]' : 'lg:pl-[248px]'
-        }`}
-      >
-        <div className="mx-auto max-w-[1040px] px-5 py-8 sm:px-10 sm:py-12">
-          <FoundationSection config={config} />
-          <MarksSection config={config} onNotify={showToast} />
-          <ColorSection config={config} onNotify={showToast} />
-          <TypographySection config={config} />
-          <MotionSection config={config} onNotify={showToast} />
-          <VoiceSection config={config} />
-          <GraphicsSection config={config} onNotify={showToast} />
-          <ApplicationsSection config={config} />
-          <ExportsSection
-            config={config}
-            onNotify={showToast}
-            onCopyForFigma={handleCopyForFigma}
-            onPrintPdf={handlePrintPdf}
-          />
-        </div>
-      </main>
+        <main
+          className={`print-full-width transition-all duration-200 ${
+            sidebarCollapsed ? 'lg:pl-[68px]' : 'lg:pl-[248px]'
+          }`}
+        >
+          <div className="mx-auto max-w-[1040px] px-5 py-8 sm:px-10 sm:py-12">
+            <FoundationSection config={config} />
+            <MarksSection config={config} onNotify={showToast} />
+            <ColorSection config={config} onNotify={showToast} />
+            <TypographySection config={config} />
+            <MotionSection config={config} onNotify={showToast} />
+            <VoiceSection config={config} />
+            <GraphicsSection config={config} onNotify={showToast} />
+            <ApplicationsSection config={config} />
+            <ExportsSection
+              config={config}
+              onNotify={showToast}
+              onCopyForFigma={handleCopyForFigma}
+              onPrintPdf={handlePrintPdf}
+            />
+          </div>
+        </main>
 
-      <CommandPalette
-        open={searchOpen}
-        config={config}
-        onClose={() => setSearchOpen(false)}
-        onNotify={showToast}
-        onOpenEditor={() => setEditorOpen(true)}
-      />
+        <CommandPalette
+          open={searchOpen}
+          config={config}
+          onClose={() => setSearchOpen(false)}
+          onNotify={showToast}
+          onOpenEditor={() => setEditorOpen(true)}
+        />
 
-      <BrandEditorDrawer
-        open={editorOpen}
-        config={config}
-        onChange={setConfig}
-        onClose={() => setEditorOpen(false)}
-        onNotify={showToast}
-      />
+        <BrandEditorDrawer
+          open={editorOpen}
+          config={config}
+          onChange={setConfig}
+          onClose={() => setEditorOpen(false)}
+          onNotify={showToast}
+        />
 
-      <ToastStack toasts={toasts} />
-    </div>
+        <ToastStack toasts={toasts} />
+      </div>
+    </ErrorBoundary>
   );
 }

@@ -4,7 +4,9 @@ import { EmDashHead, EmDashBodyStart, EmDashBodyEnd } from "emdash/ui";
 import { createPublicPageContext } from "emdash/page";
 import LiveSearch from "emdash/ui/search";
 import BrandFaviconLinks from "../components/astro/BrandFaviconLinks.astro";
+import { applyPublicPageHeaders } from "../lib/securityHeaders";
 import { resolveStarterSiteIdentity } from "../utils/site-identity";
+import "../index.css";
 
 interface Props {
 	title: string;
@@ -15,6 +17,8 @@ interface Props {
 	/** Pass content reference for plugin page contributions on content pages */
 	content?: { collection: string; id: string; slug?: string | null };
 }
+
+applyPublicPageHeaders(Astro.response.headers);
 
 const { title, pageTitle, description, image, canonical, content } =
 	Astro.props;
@@ -53,48 +57,58 @@ const pageCtx = createPublicPageContext({
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-corner-style="squircle">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>{fullTitle}</title>
 		<BrandFaviconLinks cmsFaviconUrl={settingsResult.data?.favicon?.url ?? null} />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+			rel="stylesheet"
+		/>
 		<EmDashHead page={pageCtx} />
 	</head>
-	<body>
+	<body class="min-h-screen bg-white text-neutral-900 antialiased selection:bg-neutral-900 selection:text-white">
 		<EmDashBodyStart page={pageCtx} />
 
-		<header>
-			<nav>
-				<a href="/">
+		<header class="border-b border-neutral-200 bg-white/95 backdrop-blur">
+			<nav class="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-4 px-6 py-4">
+				<a href="/" class="text-base font-semibold tracking-tight text-neutral-950">
 					{
 						siteLogo ? (
 							<img
 								src={siteLogo.url}
 								alt={siteLogo.alt || siteTitle}
-								style="height:48px;width:auto;margin:-8px 0;display:block;"
+								style="height:40px;width:auto;display:block;"
 							/>
 						) : (
 							siteTitle
 						)
 					}
 				</a>
-				{
-					menu?.items.map((item) => (
-						<a
-							href={item.url}
-							target={item.target}
-							rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
-						>
-							{item.label}
-						</a>
-					))
-				}
-				<LiveSearch placeholder="Search..." collections={["posts", "pages"]} />
+				<div class="flex flex-wrap items-center gap-5 text-xs font-medium text-neutral-600">
+					<a href="/" class="hover:text-neutral-950">Brand Guidelines</a>
+					{
+						menu?.items.map((item) => (
+							<a
+								href={item.url}
+								target={item.target}
+								rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
+								class="hover:text-neutral-950"
+							>
+								{item.label}
+							</a>
+						))
+					}
+					<LiveSearch placeholder="Search..." collections={["posts", "pages"]} />
+				</div>
 			</nav>
 		</header>
 
-		<main>
+		<main class="mx-auto max-w-4xl px-6 py-12">
 			<slot />
 		</main>
 

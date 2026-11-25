@@ -1,17 +1,19 @@
 import { Copy, Download, FileCode, FileDown, FileText } from 'lucide-react';
-import type { BrandConfig } from '../../types/brand';
+import {
+  copyText,
+  downloadBlob,
+  downloadText,
+  svgToPngBlob,
+} from '../../adapters/browserExport';
 import {
   buildAvatarSvg,
   buildIsotypeSvg,
   buildLogotypeSvg,
-  copyText,
-  downloadBlob,
-  downloadText,
   generateCssTokens,
   generateJsonTokens,
   generateLlmsBrandSpec,
-  svgToPngBlob,
-} from '../../utils/assetExport';
+} from '../../domain/assetGenerators';
+import type { BrandConfig } from '../../types/brand';
 import { getReadableInk } from '../../utils/colorMath';
 import { AssetActionBar } from '../brand/AssetActionBar';
 import { BrandLockup, BrandSymbol } from '../brand/BrandMark';
@@ -76,7 +78,7 @@ export function ExportsSection({
           </p>
         </div>
 
-        {/* Top Hub Action Buttons (Opsis-inspired) */}
+        {/* Top Hub Action Buttons */}
         <div className="no-print flex flex-wrap items-center gap-2">
           <button
             type="button"

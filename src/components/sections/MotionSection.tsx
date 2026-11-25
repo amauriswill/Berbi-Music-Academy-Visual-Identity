@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Copy, Play } from 'lucide-react';
+import { copyText } from '../../adapters/browserExport';
 import type { BrandConfig } from '../../types/brand';
-import { copyText } from '../../utils/assetExport';
 
 interface MotionSectionProps {
   config: BrandConfig;
@@ -14,6 +14,15 @@ export function MotionSection({ config, onNotify }: MotionSectionProps) {
   const [curve, setCurve] = useState<[number, number, number, number]>(initial.curve);
   const [durationMs, setDurationMs] = useState<number>(initial.durationMs);
   const [playToggle, setPlayToggle] = useState(false);
+
+  // Reset active curve when switching brand presets
+  useEffect(() => {
+    const first = config.motion.presets[0];
+    if (!first) return;
+    setSelectedId(first.id);
+    setCurve(first.curve);
+    setDurationMs(first.durationMs);
+  }, [config.id, config.motion.presets]);
 
   const selectPreset = (id: string) => {
     const found = config.motion.presets.find((m) => m.id === id);
@@ -83,7 +92,7 @@ export function MotionSection({ config, onNotify }: MotionSectionProps) {
         </div>
       </div>
 
-      {/* Gleam-inspired Cubic Bezier Visualizer Card */}
+      {/* Interactive Cubic Bezier Visualizer Card */}
       <div className="squircle-lg grid gap-8 border border-neutral-200 bg-neutral-50/70 p-6 sm:p-8 lg:grid-cols-[260px_1fr] dark:border-neutral-800 dark:bg-neutral-900/40">
         {/* Coordinate Graph */}
         <div className="squircle-md flex items-center justify-center border border-neutral-200 bg-white p-3 dark:border-neutral-800 dark:bg-neutral-950">

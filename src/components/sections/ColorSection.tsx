@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Copy } from 'lucide-react';
 import type { BrandConfig, ColorFormat } from '../../types/brand';
-import { copyText } from '../../utils/assetExport';
+import { copyText } from '../../adapters/browserExport';
 import {
   evaluateWcag,
   formatColorValue,
@@ -44,7 +44,7 @@ export function ColorSection({ config, onNotify }: ColorSectionProps) {
           </p>
         </div>
 
-        {/* Format Switcher (Gleam-inspired) */}
+        {/* Format Switcher */}
         <div className="no-print inline-flex items-center rounded-lg border border-neutral-200 bg-neutral-50 p-0.5 dark:border-neutral-800 dark:bg-neutral-900">
           {FORMATS.map((fmt) => (
             <button
@@ -115,7 +115,7 @@ export function ColorSection({ config, onNotify }: ColorSectionProps) {
                 </div>
               )}
 
-              {/* Opsis-style metadata breakdown */}
+              {/* Color token breakdown */}
               <div className="flex-1 space-y-2.5 p-4 text-[11px]">
                 <div className="grid grid-cols-3 gap-2 font-mono text-neutral-500 dark:text-neutral-400">
                   <div>
@@ -144,7 +144,7 @@ export function ColorSection({ config, onNotify }: ColorSectionProps) {
         })}
       </div>
 
-      {/* Color Proportions Bar (Opsis + Gleam) */}
+      {/* Color Proportions Bar */}
       <div className="mt-14 border-t border-neutral-200 pt-10 dark:border-neutral-800">
         <h3 className="mb-4 text-lg font-medium text-neutral-950 dark:text-white">
           Color proportions
@@ -177,7 +177,7 @@ export function ColorSection({ config, onNotify }: ColorSectionProps) {
         </p>
       </div>
 
-      {/* Readable Combinations — Live WCAG 2.1 Contrast Matrix (Opsis) */}
+      {/* Readable Combinations — Live WCAG 2.1 Contrast Matrix */}
       <div className="mt-14 border-t border-neutral-200 pt-10 dark:border-neutral-800">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
           <h3 className="text-lg font-medium text-neutral-950 dark:text-white">

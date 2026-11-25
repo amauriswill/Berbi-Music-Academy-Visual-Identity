@@ -25,6 +25,11 @@ export interface WcagEvaluation {
   passLarge: boolean;
 }
 
+/** Checks whether a string is a valid 3- or 6-digit hex color with optional leading `#`. */
+export function isValidHex(hex: string): boolean {
+  return /^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(hex.trim());
+}
+
 export function normalizeHex(hex: string): string {
   const cleaned = hex.trim().replace(/^#/, '');
   if (/^[0-9a-fA-F]{3}$/.test(cleaned)) {
@@ -41,6 +46,11 @@ export function normalizeHex(hex: string): string {
     return '#' + cleaned.toUpperCase();
   }
   return '#000000';
+}
+
+/** Normalizes valid hex colors or returns the normalized fallback when input is malformed. */
+export function sanitizeHex(hex: string, fallback = '#14131A'): string {
+  return isValidHex(hex) ? normalizeHex(hex) : normalizeHex(fallback);
 }
 
 export function hexToRgb(hex: string): RgbColor {

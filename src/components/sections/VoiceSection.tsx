@@ -17,7 +17,7 @@ export function VoiceSection({ config }: VoiceSectionProps) {
         {config.voice.summary}
       </p>
 
-      {/* Voice Specimen Block (Opsis-inspired) */}
+      {/* Voice Specimen Block */}
       <div className="squircle-lg mt-8 divide-y divide-neutral-200 border border-neutral-200 bg-white dark:divide-neutral-800 dark:border-neutral-800 dark:bg-neutral-950">
         {config.voice.examples.map((ex, idx) => (
           <div key={ex.label} className="px-6 py-5">

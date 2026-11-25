@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { BrandConfig } from '../../types/brand';
-import { buildLogotypeSvg } from '../../utils/assetExport';
+import { buildLogotypeSvg } from '../../domain/assetGenerators';
 import { getReadableInk } from '../../utils/colorMath';
 import { AssetActionBar } from '../brand/AssetActionBar';
 import { BrandLockup } from '../brand/BrandMark';
@@ -79,7 +79,7 @@ export function MarksSection({ config, onNotify }: MarksSectionProps) {
         </div>
       </div>
 
-      {/* Interactive Primary Lockup Showcase (Gleam-inspired surface toggle) */}
+      {/* Interactive Primary Lockup Showcase */}
       <div className="squircle-lg group relative overflow-hidden border border-neutral-200 dark:border-neutral-800">
         <div className="no-print flex items-center justify-between border-b border-neutral-200/80 bg-neutral-50 px-4 py-2.5 dark:border-neutral-800 dark:bg-neutral-900/70">
           <div className="flex items-center gap-1.5">
@@ -122,7 +122,7 @@ export function MarksSection({ config, onNotify }: MarksSectionProps) {
         </div>
       </div>
 
-      {/* Color Versions Grid (Opsis-inspired side-by-side cards) */}
+      {/* Color Versions Grid */}
       <div className="mt-12">
         <h3 className="mb-4 text-base font-medium text-neutral-950 dark:text-white">
           Color versions

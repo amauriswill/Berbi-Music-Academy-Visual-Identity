@@ -8,9 +8,9 @@ import {
   generateCssTokens,
   generateJsonTokens,
   generateLlmsBrandSpec,
-} from './assetExport';
+} from './assetGenerators';
 
-describe('assetExport', () => {
+describe('assetGenerators', () => {
   it('builds standalone Figma-ready SVGs for Berbi and template marks', () => {
     const berbiIso = buildIsotypeSvg('berbi', '#14131A');
     expect(berbiIso).toContain('<svg xmlns="http://www.w3.org/2000/svg"');
@@ -33,6 +33,27 @@ describe('assetExport', () => {
     const shape = buildGraphicShapeSvg('spark', '#C8923B', 160);
     expect(shape).toContain('viewBox="0 0 100 100"');
     expect(shape).toContain('#C8923B');
+  });
+
+  it('sanitizes malformed hex colors and escapes XML payloads in generated SVGs', () => {
+    const xssPayload = '"><script>alert(1)</script>';
+
+    const iso = buildIsotypeSvg('berbi', xssPayload, xssPayload);
+    expect(iso).not.toContain('<script>');
+    expect(iso).toContain('#14131A');
+
+    const logo = buildLogotypeSvg('berbi', '<Berbi & Co>', xssPayload, xssPayload, 'Inter');
+    expect(logo).not.toContain('<script>');
+    expect(logo).toContain('&lt;Berbi &amp; Co&gt;');
+
+    const avatar = buildAvatarSvg('berbi', xssPayload, xssPayload);
+    expect(avatar).not.toContain('<script>');
+    expect(avatar).toContain('#FFFFFF');
+    expect(avatar).toContain('#14131A');
+
+    const shape = buildGraphicShapeSvg('clover', xssPayload);
+    expect(shape).not.toContain('<script>');
+    expect(shape).toContain('#14131A');
   });
 
   it('generates CSS, JSON, and llms.txt brand specifications from BERBI_PRESET and EDITORIAL_PRESET', () => {

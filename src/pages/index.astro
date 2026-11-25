@@ -4,9 +4,11 @@ import { createPublicPageContext } from "emdash/page";
 import BrandbookApp from "../components/BrandbookApp";
 import BrandFaviconLinks from "../components/astro/BrandFaviconLinks.astro";
 import { loadBrandConfigFromEmDash } from "../lib/emdashBrandLoader";
+import { applyPublicPageHeaders } from "../lib/securityHeaders";
 import "../index.css";
 
 const { config, cmsStatus } = await loadBrandConfigFromEmDash();
+applyPublicPageHeaders(Astro.response.headers, { degraded: !cmsStatus.connected });
 
 const pageCtx = createPublicPageContext({
   Astro,

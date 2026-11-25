@@ -1,12 +1,9 @@
 import { useState } from 'react';
 import { Check, Copy, Download } from 'lucide-react';
+import { copyText, downloadText } from '../../adapters/browserExport';
+import { buildGraphicShapeSvg } from '../../domain/assetGenerators';
 import type { BrandConfig } from '../../types/brand';
-import {
-  buildGraphicShapeSvg,
-  copyText,
-  downloadText,
-  getShapePathSvg,
-} from '../../utils/assetExport';
+import { GraphicShape } from '../brand/BrandMark';
 
 interface GraphicsSectionProps {
   config: BrandConfig;
@@ -45,7 +42,7 @@ export function GraphicsSection({ config, onNotify }: GraphicsSectionProps) {
         </p>
       </div>
 
-      {/* Gleam-inspired 3x3 Click-to-Copy Graphic Elements Grid */}
+      {/* Interactive 3x3 click-to-copy graphic motif cards */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
         {config.graphics.elements.map((el) => {
           const fillHex = resolveColor(el.colorId);
@@ -96,13 +93,11 @@ export function GraphicsSection({ config, onNotify }: GraphicsSectionProps) {
                 </button>
               </div>
 
-              <svg
-                width="104"
-                height="104"
-                viewBox="0 0 100 100"
-                fill="none"
+              <GraphicShape
+                shapeId={el.shapeId}
+                fillHex={fillHex}
+                size={104}
                 className="transition-transform duration-300 group-hover:scale-105"
-                dangerouslySetInnerHTML={{ __html: getShapePathSvg(el.shapeId, fillHex) }}
               />
 
               <div className="mt-3 text-center">

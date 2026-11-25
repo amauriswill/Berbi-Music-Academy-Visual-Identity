@@ -7,13 +7,26 @@ import {
   hexToCmyk,
   hexToHsl,
   hexToRgb,
+  isValidHex,
   normalizeHex,
+  sanitizeHex,
 } from './colorMath';
 
 describe('colorMath', () => {
-  it('normalizes 3-digit and lowercase hex codes', () => {
+  it('validates and normalizes 3-digit and 6-digit hex codes safely', () => {
+    expect(isValidHex('#14131A')).toBe(true);
+    expect(isValidHex('fff')).toBe(true);
+    expect(isValidHex('131b16')).toBe(true);
+    expect(isValidHex('')).toBe(false);
+    expect(isValidHex('#GGGGGG')).toBe(false);
+    expect(isValidHex('"><script>alert(1)</script>')).toBe(false);
+
     expect(normalizeHex('fff')).toBe('#FFFFFF');
     expect(normalizeHex('#131b16')).toBe('#131B16');
+
+    expect(sanitizeHex('c8923b')).toBe('#C8923B');
+    expect(sanitizeHex('"><script>alert(1)</script>')).toBe('#14131A');
+    expect(sanitizeHex('not-a-color', '#ffffff')).toBe('#FFFFFF');
   });
 
   it('converts HEX to RGB, HSL, and CMYK accurately', () => {
